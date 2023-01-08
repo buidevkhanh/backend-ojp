@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.name = void 0;
+var express_1 = __importDefault(require("express"));
+var validate_mdw_1 = require("../../libs/middlewares/validate.mdw");
+var contest_controller_1 = __importDefault(require("./contest.controller"));
+var _router = express_1.default.Router();
+_router.post('/admin/contest', [validate_mdw_1.loginRequire, validate_mdw_1.adminRole, contest_controller_1.default.createContest]);
+_router.get('/admin/contest', [validate_mdw_1.loginRequire, validate_mdw_1.adminRole, contest_controller_1.default.adminList]);
+_router.get('/contest', [contest_controller_1.default.userList]);
+_router.get('/contest/own', [validate_mdw_1.loginRequire, validate_mdw_1.studentRole, contest_controller_1.default.userListOwn]);
+_router.post('/contest/register/:id', [validate_mdw_1.loginRequire, validate_mdw_1.studentRole, contest_controller_1.default.userRegister]);
+_router.get('/contest/:id', [validate_mdw_1.loginRequire, validate_mdw_1.studentRole, contest_controller_1.default.userGetDetail]);
+_router.get('/contest/:id/history', [validate_mdw_1.loginRequire, validate_mdw_1.studentRole, contest_controller_1.default.userGetContestHistory]);
+_router.get('/contest/:id/score', [validate_mdw_1.loginRequire, validate_mdw_1.studentRole, contest_controller_1.default.getScore]);
+exports.name = 'contests';
+exports.default = _router;
