@@ -62,7 +62,6 @@ function connectDB(callback) {
     });
     mongoose.connections.forEach(function (connection) {
         return connection.on('connected', function () {
-            signale.success('[Database] connect to database successful');
         });
     });
     mongoose.connections.forEach(function (connection) {

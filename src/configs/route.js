@@ -36,8 +36,8 @@ function default_1(app) {
      */
     var routes = routePaths.map(function (routePath) {
         var childRoute = require(routePath).default;
-        var routeName = require(routePath).name;
-        signale.success("[Route] route for module [[".concat(routeName, "]] has been registed"));
+        //var routeName = require(routePath).name;
+        //signale.success("[Route] route for module [[".concat(routeName, "]] has been registed"));
         return childRoute;
     });
     app.use('/api/v1', routes);

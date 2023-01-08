@@ -38,20 +38,15 @@ var sockets_1 = __importDefault(require("./src/libs/sockets"));
 var contest_service_1 = __importDefault(require("./src/api/contests/contest.service"));
 var app = (0, express_1.default)();
 dotenv.config({ path: environment_1.envConfigs.ENV_FILE_PATH });
-signale.success("[App] environment config successful");
 (0, databases_1.default)();
 (0, middleware_1.default)(app);
-signale.success("[App] middleware config successful");
 (0, route_1.default)(app);
 (0, error_1.default)(app);
-signale.success("[App] error handling config successful");
 var server = (0, sockets_1.default)(app);
-signale.success("[App] Socket initial successful");
 var CrobJob = require('cron').CronJob;
 new CrobJob('*/1 * * * *', function () {
     contest_service_1.default.autoEndContest();
 }).start();
-server.listen(process.env.OJP_DEFAULT_PORT, function () {
-    signale.success("[App] server started on port: ".concat(process.env.OJP_DEFAULT_PORT));
-});
+server.listen(process.env.OJP_DEFAULT_PORT);
+
 exports.default = app;
